@@ -1,0 +1,20 @@
+<div class="card mb-3" style="padding: 12px 12px 12px 12px;">
+	<h3 class="mr-5"><a href="{% url 'posts:for_user' username=posts.user.username %}">@{{ posts.user.username }}</a></h3>
+
+	<div class="card-body">
+		<h5 class="text-dark">{{ posts.message_html|safe }}</h5>
+	<small><a href="{% url 'posts:single' username=posts.user.username pk=posts.pk %}">@{{ posts.user.username }} <time class="time">{{ posts.created_at }}</time></a></small>
+
+				{% if posts.group %}
+	  			<span class="badge badge-light">{{ posts.group.name }}</span>
+				{% endif %}
+		<div class="mt-2" style="width: 7.2em;">
+			{% if user.is_authenticated and posts.user == user and not hide_delete %}
+				<a href="{% url 'posts:delete' pk=posts.pk %}" title="delete" class="btn btn-danger">
+					<span class="fa fa-remove text-danger" aria-hidden="true"></span>
+					<span class="icon-label">Delete</span>
+				</a>
+			{% endif %}
+		</div>
+	</div>
+</div>
